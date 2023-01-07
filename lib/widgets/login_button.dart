@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({super.key});
+  final GlobalKey<FormState> loginFormKey;
+
+  const LoginButton({required this.loginFormKey, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,9 @@ class LoginButton extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        if (loginFormKey.currentState!.validate()) {}
+      },
     );
   }
 }

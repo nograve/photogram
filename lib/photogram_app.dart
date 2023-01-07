@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:photogram/pages/login_page.dart';
 
+import 'package:photogram/pages/login_page.dart';
 import 'package:photogram/pages/register_page.dart';
 
 class PhotogramApp extends StatelessWidget {
@@ -15,7 +15,7 @@ class PhotogramApp extends StatelessWidget {
       ),
       routes: {
         'register': (context) => const RegisterPage(),
-        'login': (context) => const LoginPage(),
+        'login': (context) => LoginPage(),
       },
       initialRoute: 'login',
     );
