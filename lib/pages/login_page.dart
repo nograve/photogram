@@ -19,7 +19,10 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [TitleWidget(), LoginButton()],
+              children: const [
+                TitleWidget(),
+                LoginButton(),
+              ],
             ),
           ),
         ),
