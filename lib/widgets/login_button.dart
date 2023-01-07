@@ -20,7 +20,9 @@ class LoginButton extends StatelessWidget {
         ),
       ),
       onPressed: () {
-        if (loginFormKey.currentState!.validate()) {}
+        if (loginFormKey.currentState!.validate()) {
+          loginFormKey.currentState!.save();
+        }
       },
     );
   }
