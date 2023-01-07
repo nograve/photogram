@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:photogram/widgets/login_button.dart';
 import 'package:photogram/widgets/title_widget.dart';
 
 class LoginPage extends StatelessWidget {
@@ -6,7 +8,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final deviceHeight = MediaQuery.of(context).size.height;
+    // final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
@@ -17,9 +19,7 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                TitleWidget(),
-              ],
+              children: const [TitleWidget(), LoginButton()],
             ),
           ),
         ),
