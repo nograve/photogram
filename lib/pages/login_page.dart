@@ -26,7 +26,7 @@ class LoginPage extends StatelessWidget {
                 const TitleWidget(),
                 LoginForm(loginFormKey: loginFormKey),
                 LoginButton(loginFormKey: loginFormKey),
-                RegisterPageLink(),
+                const RegisterPageLink(),
               ],
             ),
           ),
