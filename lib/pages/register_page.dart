@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:photogram/widgets/register_button.dart';
 import 'package:photogram/widgets/register_title_widget.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -17,8 +19,9 @@ class RegisterPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+              children: const [
                 RegisterTitleWidget(),
+                RegisterButton(),
               ],
             ),
           ),
