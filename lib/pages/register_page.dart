@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photogram/widgets/profile_image_widget.dart';
 
 import 'package:photogram/widgets/register_button.dart';
 import 'package:photogram/widgets/register_title_widget.dart';
@@ -24,6 +25,7 @@ class RegisterPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const RegisterTitleWidget(),
+                const ProfileImageWidget(),
                 RegistrationForm(registerFormKey: registerFormKey),
                 const RegisterButton(),
               ],
