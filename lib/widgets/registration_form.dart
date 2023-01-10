@@ -20,7 +20,7 @@ class RegistrationForm extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          children: const [
             NameTextField(),
             EmailTextField(),
             PasswordTextField(),
