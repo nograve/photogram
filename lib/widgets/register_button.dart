@@ -19,7 +19,7 @@ class RegisterButton extends StatelessWidget {
         style: TextStyle(
           color: Colors.white,
           fontSize: 20,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w600,
         ),
       ),
       onPressed: () {
