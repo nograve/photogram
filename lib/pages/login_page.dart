@@ -7,6 +7,7 @@ import 'package:photogram/widgets/title_widget.dart';
 
 class LoginPage extends StatelessWidget {
   final loginFormKey = GlobalKey<FormState>();
+
   LoginPage({super.key});
 
   @override

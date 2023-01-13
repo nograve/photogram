@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:photogram/widgets/register_button.dart';
-import 'package:photogram/widgets/register_title_widget.dart';
 import 'package:photogram/widgets/registration_form.dart';
+import 'package:photogram/widgets/title_widget.dart';
 
 class RegisterPage extends StatelessWidget {
   final registerFormKey = GlobalKey<FormState>();
@@ -23,7 +23,7 @@ class RegisterPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const RegisterTitleWidget(),
+                const TitleWidget(),
                 RegistrationForm(registerFormKey: registerFormKey),
                 RegisterButton(registerFormKey: registerFormKey),
               ],
