@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class RegisterButton extends StatelessWidget {
-  const RegisterButton({super.key});
+  final GlobalKey<FormState> registerFormKey;
+
+  const RegisterButton({
+    required this.registerFormKey,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,12 @@ class RegisterButton extends StatelessWidget {
           fontWeight: FontWeight.w400,
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        if (registerFormKey.currentState!.validate()) {
+          print('validated!');
+          registerFormKey.currentState!.save();
+        }
+      },
     );
   }
 }
