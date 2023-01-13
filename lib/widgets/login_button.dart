@@ -10,7 +10,7 @@ class LoginButton extends StatelessWidget {
     return MaterialButton(
       minWidth: MediaQuery.of(context).size.width * 0.7,
       height: MediaQuery.of(context).size.height * 0.06,
-      color: Colors.red,
+      color: Colors.pink,
       child: const Text(
         'Login',
         style: TextStyle(
