@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 
-import 'package:photogram/widgets/home_bottom_bar.dart';
+import 'package:photogram/pages/feed_page.dart';
+import 'package:photogram/pages/profile_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _currentPage = 0;
+  final List<Widget> _pages = const [
+    FeedPage(),
+    ProfilePage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +39,25 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: const HomeBottomBar(),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentPage,
+        onTap: (value) {
+          setState(() {
+            _currentPage = value;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            label: 'Feed',
+            icon: Icon(Icons.feed),
+          ),
+          BottomNavigationBarItem(
+            label: 'Profile',
+            icon: Icon(Icons.account_box),
+          ),
+        ],
+      ),
+      body: _pages[_currentPage],
     );
   }
 }

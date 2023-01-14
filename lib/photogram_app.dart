@@ -17,7 +17,7 @@ class PhotogramApp extends StatelessWidget {
       routes: {
         'register': (context) => RegisterPage(),
         'login': (context) => LoginPage(),
-        'home': (context) => const HomePage(),
+        'home': (context) => HomePage(),
       },
       initialRoute: 'home',
     );
