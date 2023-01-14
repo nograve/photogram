@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:photogram/widgets/home_bottom_bar.dart';
 
 class HomePage extends StatelessWidget {
