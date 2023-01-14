@@ -24,7 +24,6 @@ class RegisterButton extends StatelessWidget {
       ),
       onPressed: () {
         if (registerFormKey.currentState!.validate()) {
-          print('validated!');
           registerFormKey.currentState!.save();
         }
       },
