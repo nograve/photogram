@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photogram/widgets/home_bottom_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -25,6 +26,7 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: const HomeBottomBar(),
     );
   }
 }
