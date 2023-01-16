@@ -15,7 +15,7 @@ class PhotogramApp extends StatelessWidget {
         primarySwatch: Colors.pink,
       ),
       routes: {
-        'register': (context) => RegisterPage(),
+        'register': (context) => const RegisterPage(),
         'login': (context) => const LoginPage(),
         'home': (context) => const HomePage(),
       },
