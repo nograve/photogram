@@ -26,8 +26,8 @@ class RegistrationForm extends StatelessWidget {
           children: const [
             ProfileImageFormField(),
             NameTextField(),
-            EmailTextField(),
-            PasswordTextField(),
+            EmailTextField(emailOnSubmitted: null),
+            PasswordTextField(passwordOnSubmitted: null),
           ],
         ),
       ),

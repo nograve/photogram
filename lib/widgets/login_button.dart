@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+
+import 'package:photogram/services/firebase_service.dart';
 
 class LoginButton extends StatelessWidget {
+  final FirebaseService firebaseService = GetIt.instance.get<FirebaseService>();
   final GlobalKey<FormState> loginFormKey;
+  final String? email;
+  final String? password;
 
-  const LoginButton({required this.loginFormKey, super.key});
+  void loginUser() {}
+
+  LoginButton({
+    required this.loginFormKey,
+    required this.email,
+    required this.password,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +32,13 @@ class LoginButton extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      onPressed: () {
+      onPressed: () async {
         if (loginFormKey.currentState!.validate()) {
-          loginFormKey.currentState!.save();
+          bool result = await firebaseService.loginUser(
+            email: email!,
+            password: password!,
+          );
+          if (result) Navigator.popAndPushNamed(context, 'home');
         }
       },
     );

@@ -16,10 +16,10 @@ class PhotogramApp extends StatelessWidget {
       ),
       routes: {
         'register': (context) => RegisterPage(),
-        'login': (context) => LoginPage(),
+        'login': (context) => const LoginPage(),
         'home': (context) => const HomePage(),
       },
-      initialRoute: 'home',
+      initialRoute: 'login',
     );
   }
 }

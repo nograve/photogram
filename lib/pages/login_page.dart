@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:photogram/widgets/login_button.dart';
 import 'package:photogram/widgets/login_form.dart';
 import 'package:photogram/widgets/register_page_link.dart';
 import 'package:photogram/widgets/title_widget.dart';
 
 class LoginPage extends StatelessWidget {
-  final loginFormKey = GlobalKey<FormState>();
-
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +20,10 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const TitleWidget(),
-                LoginForm(loginFormKey: loginFormKey),
-                LoginButton(loginFormKey: loginFormKey),
-                const RegisterPageLink(),
+              children: const [
+                TitleWidget(),
+                LoginForm(),
+                RegisterPageLink(),
               ],
             ),
           ),

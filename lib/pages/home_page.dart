@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
               right: 8.0,
             ),
             child: GestureDetector(
-              onTap: null,
+              onTap: () => Navigator.pushReplacementNamed(context, 'login'),
               child: const Icon(Icons.logout),
             ),
           ),

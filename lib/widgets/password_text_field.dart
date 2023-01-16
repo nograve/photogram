@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
 
-class PasswordTextField extends StatefulWidget {
-  const PasswordTextField({super.key});
+class PasswordTextField extends StatelessWidget {
+  final void Function(String)? passwordOnSubmitted;
 
-  @override
-  State<PasswordTextField> createState() => _PasswordTextFieldState();
-}
-
-class _PasswordTextFieldState extends State<PasswordTextField> {
-  String? _password;
+  const PasswordTextField({
+    required this.passwordOnSubmitted,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: true,
       decoration: const InputDecoration(hintText: 'Password'),
-      onSaved: (newValue) {
-        setState(() {
-          _password = newValue;
-        });
-      },
+      onChanged: passwordOnSubmitted,
       validator: (value) {
         if (value != null && value.length > 6) {
           return null;
