@@ -11,7 +11,7 @@ class RegisterPageLink extends StatelessWidget {
       onPressed: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => RegisterPage(),
+          builder: (context) => const RegisterPage(),
         ),
       ),
       child: const Text(
