@@ -60,6 +60,12 @@ class _LoginFormState extends State<LoginForm> {
               },
             ),
             ElevatedButton(
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all(
+                  Size(MediaQuery.of(context).size.width * 0.5,
+                      MediaQuery.of(context).size.height * 0.06),
+                ),
+              ),
               child: const Text(
                 'Login',
                 style: TextStyle(
