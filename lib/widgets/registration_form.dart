@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:photogram/services/firebase_service.dart';
+import '../services/firebase_service.dart';
 
 class RegistrationForm extends StatefulWidget {
   const RegistrationForm({super.key});

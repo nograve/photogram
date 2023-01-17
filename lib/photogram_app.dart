@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:photogram/pages/home_page.dart';
+import 'pages/home_page.dart';
 
-import 'package:photogram/pages/login_page.dart';
-import 'package:photogram/pages/register_page.dart';
+import 'pages/login_page.dart';
+import 'pages/register_page.dart';
 
 class PhotogramApp extends StatelessWidget {
   const PhotogramApp({super.key});

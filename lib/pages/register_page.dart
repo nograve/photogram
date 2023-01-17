@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:photogram/widgets/registration_form.dart';
-import 'package:photogram/widgets/title_widget.dart';
+import '../widgets/registration_form.dart';
+import '../widgets/title_widget.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});

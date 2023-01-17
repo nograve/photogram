@@ -3,9 +3,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import 'package:photogram/pages/feed_page.dart';
-import 'package:photogram/pages/profile_page.dart';
-import 'package:photogram/services/firebase_service.dart';
+import 'feed_page.dart';
+import 'profile_page.dart';
+import '../services/firebase_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

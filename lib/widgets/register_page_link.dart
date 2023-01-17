@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:photogram/pages/register_page.dart';
+import '../pages/register_page.dart';
 
 class RegisterPageLink extends StatelessWidget {
   const RegisterPageLink({super.key});
