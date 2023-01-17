@@ -1,26 +1,148 @@
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:photogram/services/firebase_service.dart';
 
-import 'package:photogram/widgets/name_text_field.dart';
-import 'package:photogram/widgets/profile_image_form_field.dart';
+class RegistrationForm extends StatefulWidget {
+  const RegistrationForm({super.key});
 
-class RegistrationForm extends StatelessWidget {
-  final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
+  @override
+  State<RegistrationForm> createState() => _RegistrationFormState();
+}
 
-  RegistrationForm({super.key});
+class _RegistrationFormState extends State<RegistrationForm> {
+  final FirebaseService _firebaseService =
+      GetIt.instance.get<FirebaseService>();
+  final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
+  File? _image;
+  String? _name;
+  String? _email;
+  String? _password;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.5,
+      height: MediaQuery.of(context).size.height * 0.6,
       child: Form(
-        key: registerFormKey,
+        key: _registerFormKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            ProfileImageFormField(),
-            NameTextField(),
+          children: [
+            FormField<File>(
+              validator: (value) {
+                if (value != null) {
+                  return null;
+                }
+                return 'Please select an image';
+              },
+              builder: (field) {
+                return GestureDetector(
+                  onTap: () {
+                    FilePicker.platform
+                        .pickFiles(type: FileType.image)
+                        .then((value) {
+                      if (value != null) {
+                        setState(() {
+                          _image = File(value.files.first.path!);
+                        });
+                        field.didChange(_image);
+                      }
+                    });
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    width: MediaQuery.of(context).size.height * 0.15,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: (_image != null
+                            ? FileImage(_image!)
+                            : const NetworkImage(
+                                'https://i.pravatar.cc/300')) as ImageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+            TextFormField(
+              decoration: const InputDecoration(hintText: 'Name'),
+              validator: (value) {
+                if (value != null && value.isNotEmpty) {
+                  return null;
+                }
+                return 'Please enter your name';
+              },
+              onSaved: (newValue) {
+                setState(() {
+                  _name = newValue;
+                });
+              },
+            ),
+            TextFormField(
+              decoration: const InputDecoration(hintText: 'Email'),
+              onSaved: (newValue) {
+                setState(() {
+                  _email = newValue;
+                });
+              },
+              validator: (value) {
+                if (value != null &&
+                    value.contains(RegExp(
+                        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"))) {
+                  return null;
+                }
+                return 'Please enter a valid email';
+              },
+            ),
+            TextFormField(
+              obscureText: true,
+              decoration: const InputDecoration(hintText: 'Password'),
+              onSaved: (newValue) {
+                setState(() {
+                  _password = newValue;
+                });
+              },
+              validator: (value) {
+                if (value != null && value.length > 6) {
+                  return null;
+                }
+                return 'Please enter a password greater than 6 characters';
+              },
+            ),
+            ElevatedButton(
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all(
+                  Size(
+                    MediaQuery.of(context).size.width * 0.5,
+                    MediaQuery.of(context).size.height * 0.06,
+                  ),
+                ),
+              ),
+              child: const Text(
+                'Register',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              onPressed: () async {
+                if (_registerFormKey.currentState!.validate()) {
+                  _registerFormKey.currentState!.save();
+                  final result = await _firebaseService.registerUser(
+                    name: _name!,
+                    email: _email!,
+                    password: _password!,
+                    image: _image!,
+                  );
+                  if (result) Navigator.pop(context);
+                }
+              },
+            ),
           ],
         ),
       ),

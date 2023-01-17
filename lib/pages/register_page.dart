@@ -19,8 +19,8 @@ class RegisterPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const TitleWidget(),
+              children: const [
+                TitleWidget(),
                 RegistrationForm(),
               ],
             ),
