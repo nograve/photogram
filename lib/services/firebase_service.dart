@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 const String userCollection = 'users';
+const String postsCollection = 'posts';
 
 class FirebaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -28,7 +29,7 @@ class FirebaseService {
       final fileName = Timestamp.now().millisecondsSinceEpoch.toString() +
           p.extension(image.path);
       final task = _storage.ref('images/$userId/$fileName').putFile(image);
-      return task.then((snapshot) async {
+      return await task.then((snapshot) async {
         final downloadURL = await snapshot.ref.getDownloadURL();
         await _db.collection(userCollection).doc(userId).set({
           'name': name,
@@ -55,7 +56,7 @@ class FirebaseService {
         return true;
       }
       return false;
-    } on Exception catch (e) {
+    } catch (e) {
       print(e);
       return false;
     }
@@ -64,5 +65,26 @@ class FirebaseService {
   Future<Map> getUserData({required String uid}) async {
     final doc = await _db.collection(userCollection).doc(uid).get();
     return doc.data() as Map;
+  }
+
+  Future<bool> postImage(File image) async {
+    try {
+      final userId = _auth.currentUser!.uid;
+      final fileName = Timestamp.now().millisecondsSinceEpoch.toString() +
+          p.extension(image.path);
+      final task = _storage.ref('images/$userId/$fileName').putFile(image);
+      return await task.then((snapshot) async {
+        final downloadUrl = await snapshot.ref.getDownloadURL();
+        await _db.collection(postsCollection).add({
+          'userId': userId,
+          'timestamp': Timestamp.now(),
+          'image': downloadUrl,
+        });
+        return true;
+      });
+    } catch (e) {
+      print(e);
+      return false;
+    }
   }
 }

@@ -1,7 +1,11 @@
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import 'package:photogram/pages/feed_page.dart';
 import 'package:photogram/pages/profile_page.dart';
+import 'package:photogram/services/firebase_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,6 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final FirebaseService _firebaseService =
+      GetIt.instance.get<FirebaseService>();
   int _currentPage = 0;
   final List<Widget> _pages = const [
     FeedPage(),
@@ -24,7 +30,14 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Photogram'),
         actions: [
           GestureDetector(
-            onTap: null,
+            onTap: () async {
+              final result =
+                  await FilePicker.platform.pickFiles(type: FileType.image);
+              if (result != null) {
+                final image = File(result.files.first.path!);
+                await _firebaseService.postImage(image);
+              }
+            },
             child: const Icon(Icons.add_a_photo),
           ),
           Padding(
