@@ -112,4 +112,8 @@ class FirebaseService {
         .where('userId', isEqualTo: userId)
         .snapshots();
   }
+
+  Future<void> logOut() async {
+    await _auth.signOut();
+  }
 }

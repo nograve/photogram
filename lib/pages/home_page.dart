@@ -46,7 +46,10 @@ class _HomePageState extends State<HomePage> {
               right: 8.0,
             ),
             child: GestureDetector(
-              onTap: () => Navigator.pushReplacementNamed(context, 'login'),
+              onTap: () async {
+                await _firebaseService.logOut();
+                Navigator.popAndPushNamed(context, 'login');
+              },
               child: const Icon(Icons.logout),
             ),
           ),
