@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:photogram/services/firebase_service.dart';
+import '../services/firebase_service.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
