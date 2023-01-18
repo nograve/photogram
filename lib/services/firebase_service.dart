@@ -16,6 +16,8 @@ class FirebaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   Map? _currentUser;
 
+  Map? get currentUser => _currentUser;
+
   Future<bool> registerUser({
     required String name,
     required String email,
