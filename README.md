@@ -1,1 +1,1 @@
-Application for sharing photos
+Application for sharing photos, social network
