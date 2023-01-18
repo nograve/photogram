@@ -1,8 +1,9 @@
 import 'dart:io';
-import 'package:path/path.dart' as p;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart' as p;
 
 const String userCollection = 'users';
 const String postsCollection = 'posts';
@@ -86,5 +87,12 @@ class FirebaseService {
       print(e);
       return false;
     }
+  }
+
+  Stream<QuerySnapshot> getLatestPosts() {
+    return _db
+        .collection(postsCollection)
+        .orderBy('timestamp', descending: true)
+        .snapshots();
   }
 }

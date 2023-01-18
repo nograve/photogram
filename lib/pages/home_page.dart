@@ -18,9 +18,9 @@ class _HomePageState extends State<HomePage> {
   final FirebaseService _firebaseService =
       GetIt.instance.get<FirebaseService>();
   int _currentPage = 0;
-  final List<Widget> _pages = const [
+  final List<Widget> _pages = [
     FeedPage(),
-    ProfilePage(),
+    const ProfilePage(),
   ];
 
   @override

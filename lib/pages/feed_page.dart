@@ -1,12 +1,46 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+
+import '../services/firebase_service.dart';
 
 class FeedPage extends StatelessWidget {
-  const FeedPage({super.key});
+  FeedPage({super.key});
+
+  final FirebaseService firebaseService = GetIt.instance.get<FirebaseService>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.green,
+    return StreamBuilder<QuerySnapshot>(
+      stream: firebaseService.getLatestPosts(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final List posts = snapshot.data!.docs.map((e) => e.data()).toList();
+          return ListView.builder(
+            itemCount: posts.length,
+            itemBuilder: (context, index) {
+              Map post = posts[index];
+              return Container(
+                height: MediaQuery.of(context).size.height * 0.3,
+                margin: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.01,
+                  horizontal: MediaQuery.of(context).size.width * 0.05,
+                ),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(post['image']),
+                  ),
+                ),
+              );
+            },
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
     );
   }
 }
