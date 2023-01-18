@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   int _currentPage = 0;
   final List<Widget> _pages = [
     FeedPage(),
-    ProfilePage(),
+    const ProfilePage(),
   ];
 
   @override
