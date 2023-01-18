@@ -77,7 +77,7 @@ class _LoginFormState extends State<LoginForm> {
               onPressed: () async {
                 if (_loginFormKey.currentState!.validate()) {
                   _loginFormKey.currentState!.save();
-                  bool result = await _firebaseService.loginUser(
+                  final bool result = await _firebaseService.loginUser(
                     email: _email!,
                     password: _password!,
                   );

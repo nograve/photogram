@@ -9,13 +9,12 @@ const String userCollection = 'users';
 const String postsCollection = 'posts';
 
 class FirebaseService {
+  FirebaseService();
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-
   Map? _currentUser;
-
-  FirebaseService();
 
   Future<bool> registerUser({
     required String name,
@@ -24,14 +23,16 @@ class FirebaseService {
     required File image,
   }) async {
     try {
-      final userCredential = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      final userId = userCredential.user!.uid;
-      final fileName = Timestamp.now().millisecondsSinceEpoch.toString() +
-          p.extension(image.path);
-      final task = _storage.ref('images/$userId/$fileName').putFile(image);
+      final UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
+      final String userId = userCredential.user!.uid;
+      final String fileName =
+          Timestamp.now().millisecondsSinceEpoch.toString() +
+              p.extension(image.path);
+      final UploadTask task =
+          _storage.ref('images/$userId/$fileName').putFile(image);
       return await task.then((snapshot) async {
-        final downloadURL = await snapshot.ref.getDownloadURL();
+        final String downloadURL = await snapshot.ref.getDownloadURL();
         await _db.collection(userCollection).doc(userId).set({
           'name': name,
           'email': email,
@@ -50,8 +51,8 @@ class FirebaseService {
     required String password,
   }) async {
     try {
-      final userCredential = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+      final UserCredential userCredential = await _auth
+          .signInWithEmailAndPassword(email: email, password: password);
       if (userCredential.user != null) {
         _currentUser = await getUserData(uid: userCredential.user!.uid);
         return true;
@@ -64,18 +65,21 @@ class FirebaseService {
   }
 
   Future<Map> getUserData({required String uid}) async {
-    final doc = await _db.collection(userCollection).doc(uid).get();
+    final DocumentSnapshot<Map<String, dynamic>> doc =
+        await _db.collection(userCollection).doc(uid).get();
     return doc.data() as Map;
   }
 
   Future<bool> postImage(File image) async {
     try {
-      final userId = _auth.currentUser!.uid;
-      final fileName = Timestamp.now().millisecondsSinceEpoch.toString() +
-          p.extension(image.path);
-      final task = _storage.ref('images/$userId/$fileName').putFile(image);
+      final String userId = _auth.currentUser!.uid;
+      final String fileName =
+          Timestamp.now().millisecondsSinceEpoch.toString() +
+              p.extension(image.path);
+      final UploadTask task =
+          _storage.ref('images/$userId/$fileName').putFile(image);
       return await task.then((snapshot) async {
-        final downloadUrl = await snapshot.ref.getDownloadURL();
+        final String downloadUrl = await snapshot.ref.getDownloadURL();
         await _db.collection(postsCollection).add({
           'userId': userId,
           'timestamp': Timestamp.now(),
