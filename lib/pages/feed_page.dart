@@ -20,19 +20,33 @@ class FeedPage extends StatelessWidget {
             itemCount: posts.length,
             itemBuilder: (context, index) {
               Map post = posts[index];
-              return Container(
-                height: MediaQuery.of(context).size.height * 0.3,
-                margin: EdgeInsets.symmetric(
-                  vertical: MediaQuery.of(context).size.height * 0.01,
-                  horizontal: MediaQuery.of(context).size.width * 0.05,
-                ),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(post['image']),
+              return Column(
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    margin: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.01,
+                      horizontal: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(post['image']),
+                      ),
+                    ),
                   ),
-                ),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      'Published by @${post['userId']}',
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ],
               );
             },
           );
