@@ -27,6 +27,7 @@ class FeedPage extends StatelessWidget {
                   horizontal: MediaQuery.of(context).size.width * 0.05,
                 ),
                 decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black),
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: NetworkImage(post['image']),
