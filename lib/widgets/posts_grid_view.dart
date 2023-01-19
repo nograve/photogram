@@ -28,6 +28,7 @@ class PostsGridView extends StatelessWidget {
                 final Map post = posts[index];
                 return Container(
                   decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: NetworkImage(post['image']),
