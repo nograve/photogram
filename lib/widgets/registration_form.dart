@@ -23,7 +23,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.6,
+      height: MediaQuery.of(context).size.height * 0.55,
       child: Form(
         key: _registerFormKey,
         child: Column(
@@ -52,18 +52,30 @@ class _RegistrationFormState extends State<RegistrationForm> {
                       }
                     });
                   },
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    width: MediaQuery.of(context).size.height * 0.15,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: (_image != null
-                            ? FileImage(_image!)
-                            : const NetworkImage(
-                                'https://i.pravatar.cc/300')) as ImageProvider,
-                        fit: BoxFit.cover,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.15,
+                        width: MediaQuery.of(context).size.height * 0.15,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: (_image != null
+                                    ? FileImage(_image!)
+                                    : const NetworkImage(
+                                        'https://i.pravatar.cc/300'))
+                                as ImageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                    ),
+                      Text(
+                        field.errorText ?? '',
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
                   ),
                 );
               },
