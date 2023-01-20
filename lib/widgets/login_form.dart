@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 import '../services/firebase_service.dart';
 
@@ -77,11 +78,18 @@ class _LoginFormState extends State<LoginForm> {
               onPressed: () async {
                 if (_loginFormKey.currentState!.validate()) {
                   _loginFormKey.currentState!.save();
-                  final bool result = await _firebaseService.loginUser(
+                  final String? result = await _firebaseService.loginUser(
                     email: _email!,
                     password: _password!,
                   );
-                  if (result) Navigator.popAndPushNamed(context, 'home');
+                  if (result == null) {
+                    Navigator.popAndPushNamed(context, 'home');
+                  } else {
+                    showSimpleNotification(
+                      Text(result),
+                      background: Colors.grey,
+                    );
+                  }
                 }
               },
             ),

@@ -48,7 +48,7 @@ class FirebaseService {
     }
   }
 
-  Future<bool> loginUser({
+  Future<String?> loginUser({
     required String email,
     required String password,
   }) async {
@@ -57,12 +57,13 @@ class FirebaseService {
           .signInWithEmailAndPassword(email: email, password: password);
       if (userCredential.user != null) {
         _currentUser = await getUserData(uid: userCredential.user!.uid);
-        return true;
+        return null;
       }
-      return false;
-    } catch (e) {
+      return 'Failed to get user data.';
+    } on FirebaseAuthException catch (e) {
+      return e.message;
+    } on Exception catch (e) {
       print(e);
-      return false;
     }
   }
 
