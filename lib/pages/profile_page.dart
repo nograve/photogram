@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:photogram/widgets/user_name_widget.dart';
+import '../widgets/user_name_widget.dart';
 import '../widgets/posts_grid_view.dart';
 import '../widgets/profile_picture.dart';
 

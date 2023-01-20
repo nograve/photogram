@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'full_screen_page.dart';
 
 import '../services/firebase_service.dart';
 
@@ -22,17 +23,28 @@ class FeedPage extends StatelessWidget {
               Map post = posts[index];
               return Column(
                 children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    margin: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.01,
-                      horizontal: MediaQuery.of(context).size.width * 0.05,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(post['image']),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FullScreenPage(
+                              url: post['image'],
+                            ),
+                          ));
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      margin: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height * 0.01,
+                        horizontal: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(post['image']),
+                        ),
                       ),
                     ),
                   ),

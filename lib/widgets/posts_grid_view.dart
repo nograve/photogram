@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+
+import '../pages/full_screen_page.dart';
 import '../services/firebase_service.dart';
 
 class PostsGridView extends StatelessWidget {
@@ -26,12 +28,23 @@ class PostsGridView extends StatelessWidget {
               itemCount: posts.length,
               itemBuilder: (context, index) {
                 final Map post = posts[index];
-                return Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(post['image']),
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FullScreenPage(
+                            url: post['image'],
+                          ),
+                        ));
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(post['image']),
+                      ),
                     ),
                   ),
                 );
