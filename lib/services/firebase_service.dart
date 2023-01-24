@@ -9,8 +9,6 @@ const String userCollection = 'users';
 const String postsCollection = 'posts';
 
 class FirebaseService {
-  FirebaseService();
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
