@@ -57,12 +57,12 @@ class FirebaseService {
         _currentUser = await getUserData(uid: userCredential.user!.uid);
         return null;
       }
-      return 'Failed to get user data.';
     } on FirebaseAuthException catch (e) {
       return e.message;
     } on Exception catch (e) {
       print(e);
     }
+    return 'Failed to get user data.';
   }
 
   Future<Map> getUserData({required String uid}) async {
