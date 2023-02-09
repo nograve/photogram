@@ -16,7 +16,7 @@ class FirebaseService {
 
   Map? get currentUser => _currentUser;
 
-  Future<bool> registerUser({
+  Future<String?> registerUser({
     required String name,
     required String email,
     required String password,
@@ -38,12 +38,19 @@ class FirebaseService {
           'email': email,
           'image': downloadURL,
         });
-        return true;
+        return null;
       });
-    } catch (e) {
-      print(e);
-      return false;
+    } on FirebaseAuthException catch (e) {
+      return e.message;
+    } on Exception {
+      return 'Failed to register user.';
     }
+  }
+
+  Future<Map> getUserData({required String uid}) async {
+    final DocumentSnapshot<Map<String, dynamic>> doc =
+        await _db.collection(userCollection).doc(uid).get();
+    return doc.data() as Map;
   }
 
   Future<String?> loginUser({
@@ -53,25 +60,16 @@ class FirebaseService {
     try {
       final UserCredential userCredential = await _auth
           .signInWithEmailAndPassword(email: email, password: password);
-      if (userCredential.user != null) {
-        _currentUser = await getUserData(uid: userCredential.user!.uid);
-        return null;
-      }
+      _currentUser = await getUserData(uid: userCredential.user!.uid);
+      return null;
     } on FirebaseAuthException catch (e) {
       return e.message;
-    } on Exception catch (e) {
-      print(e);
+    } on Exception {
+      return 'Failed to log in.';
     }
-    return 'Failed to get user data.';
   }
 
-  Future<Map> getUserData({required String uid}) async {
-    final DocumentSnapshot<Map<String, dynamic>> doc =
-        await _db.collection(userCollection).doc(uid).get();
-    return doc.data() as Map;
-  }
-
-  Future<bool> postImage(File image) async {
+  Future<String?> postImage(File image) async {
     try {
       final String userId = _auth.currentUser!.uid;
       final String fileName =
@@ -86,11 +84,10 @@ class FirebaseService {
           'timestamp': Timestamp.now(),
           'image': downloadUrl,
         });
-        return true;
+        return null;
       });
-    } catch (e) {
-      print(e);
-      return false;
+    } on Exception {
+      return 'Failed to post the image.';
     }
   }
 

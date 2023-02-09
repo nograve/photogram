@@ -147,13 +147,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
               onPressed: () async {
                 if (_registerFormKey.currentState!.validate()) {
                   _registerFormKey.currentState!.save();
-                  final bool result = await _firebaseService.registerUser(
+                  final String? result = await _firebaseService.registerUser(
                     name: _name!,
                     email: _email!,
                     password: _password!,
                     image: _image!,
                   );
-                  if (result) Navigator.pop(context);
+                  if (result == null) Navigator.pop(context);
                 }
               },
             ),
