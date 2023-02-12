@@ -16,13 +16,13 @@ void main() {
     final String? result = emailValidator('');
     expect(result.runtimeType, String);
   });
-  // test(
-  //     'Given wrong written email '
-  //     'When passwordValidator function invoked '
-  //     'Then result returned', () {
-  //   final String? result = emailValidator('123gmai@123123');
-  //   expect(result.runtimeType, String);
-  // });
+  test(
+      'Given wrong written email '
+      'When passwordValidator function invoked '
+      'Then result returned', () {
+    final String? result = emailValidator('123gmai@123123');
+    expect(result.runtimeType, String);
+  });
   test(
       'Given right written email '
       'When passwordValidator function invoked '
