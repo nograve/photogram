@@ -16,4 +16,18 @@ void main() {
     final String? result = passwordValidator('');
     expect(result.runtimeType, String);
   });
+  test(
+      'Given password with less than 6 characters '
+      'When passwordValidator function invoked '
+      'Then result returned', () {
+    final String? result = passwordValidator('sd2lo');
+    expect(result.runtimeType, String);
+  });
+  test(
+      'Given password with more than 6 characters '
+      'When passwordValidator function invoked '
+      'Then result returned', () {
+    final String? result = passwordValidator('DSAe2112d');
+    expect(result, null);
+  });
 }
