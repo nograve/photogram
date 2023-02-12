@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photogram/functions/password_validator.dart';
 
 class PasswordFormField extends StatelessWidget {
   const PasswordFormField({
@@ -14,12 +15,7 @@ class PasswordFormField extends StatelessWidget {
       obscureText: true,
       decoration: const InputDecoration(hintText: 'Password'),
       onSaved: onPasswordSaved,
-      validator: (password) {
-        if (password != null && password.length > 6) {
-          return null;
-        }
-        return 'Please enter a password greater than 6 characters';
-      },
+      validator: passwordValidator,
     );
   }
 }

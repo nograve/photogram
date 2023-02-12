@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../functions/email_validator.dart';
+
 class EmailFormField extends StatelessWidget {
   const EmailFormField({
     super.key,
@@ -13,14 +15,7 @@ class EmailFormField extends StatelessWidget {
     return TextFormField(
       decoration: const InputDecoration(hintText: 'Email'),
       onSaved: onEmailSaved,
-      validator: (email) {
-        if (email != null &&
-            email.contains(RegExp(
-                r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"))) {
-          return null;
-        }
-        return 'Please enter a valid email';
-      },
+      validator: emailValidator,
     );
   }
 }
