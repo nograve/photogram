@@ -17,18 +17,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final FirebaseService _firebaseService =
       GetIt.instance.get<FirebaseService>();
-  int _currentPage = 0;
+  int _currentPageIndex = 0;
   final List<Widget> _pages = [
     FeedPage(),
     const ProfilePage(),
   ];
-
-  void onLogOutPressed() async {
-    await _firebaseService.logOut();
-    if (context.mounted) {
-      Navigator.popAndPushNamed(context, 'login');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,17 +46,22 @@ class _HomePageState extends State<HomePage> {
               right: 8.0,
             ),
             child: GestureDetector(
-              onTap: onLogOutPressed,
+              onTap: () async {
+                await _firebaseService.logOut();
+                if (context.mounted) {
+                  Navigator.popAndPushNamed(context, 'login');
+                }
+              },
               child: const Icon(Icons.logout),
             ),
           ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentPage,
-        onTap: (value) {
+        currentIndex: _currentPageIndex,
+        onTap: (int selectedPageIndex) {
           setState(() {
-            _currentPage = value;
+            _currentPageIndex = selectedPageIndex;
           });
         },
         items: const [
@@ -77,7 +75,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: _pages[_currentPage],
+      body: _pages[_currentPageIndex],
     );
   }
 }

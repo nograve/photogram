@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:photogram/widgets/email_text_field.dart';
+import 'package:photogram/widgets/password_text_field.dart';
 
 import '../services/firebase_service.dart';
 
@@ -21,19 +23,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
   String? _name;
   String? _email;
   String? _password;
-
-  void onRegisterButtonPressed() async {
-    if (_registerFormKey.currentState!.validate()) {
-      _registerFormKey.currentState!.save();
-      final String? result = await _firebaseService.registerUser(
-        name: _name!,
-        email: _email!,
-        password: _password!,
-        image: _image!,
-      );
-      if (context.mounted && result == null) Navigator.pop(context);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,37 +98,16 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 });
               },
             ),
-            TextFormField(
-              decoration: const InputDecoration(hintText: 'Email'),
-              onSaved: (newValue) {
-                setState(() {
-                  _email = newValue;
-                });
-              },
-              validator: (value) {
-                if (value != null &&
-                    value.contains(RegExp(
-                        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"))) {
-                  return null;
-                }
-                return 'Please enter a valid email';
-              },
-            ),
-            TextFormField(
-              obscureText: true,
-              decoration: const InputDecoration(hintText: 'Password'),
-              onSaved: (newValue) {
-                setState(() {
-                  _password = newValue;
-                });
-              },
-              validator: (value) {
-                if (value != null && value.length > 6) {
-                  return null;
-                }
-                return 'Please enter a password greater than 6 characters';
-              },
-            ),
+            EmailTextField(onEmailSaved: (newEmail) {
+              setState(() {
+                _email = newEmail;
+              });
+            }),
+            PasswordTextField(onPasswordSaved: (newPassword) {
+              setState(() {
+                _password = newPassword;
+              });
+            }),
             ElevatedButton(
               style: ButtonStyle(
                 fixedSize: MaterialStateProperty.all(
@@ -149,7 +117,20 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   ),
                 ),
               ),
-              onPressed: onRegisterButtonPressed,
+              onPressed: () async {
+                if (_registerFormKey.currentState!.validate()) {
+                  _registerFormKey.currentState!.save();
+                  final String? result = await _firebaseService.registerUser(
+                    name: _name!,
+                    email: _email!,
+                    password: _password!,
+                    image: _image!,
+                  );
+                  if (context.mounted && result == null) {
+                    Navigator.pop(context);
+                  }
+                }
+              },
               child: const Text(
                 'Register',
                 style: TextStyle(
