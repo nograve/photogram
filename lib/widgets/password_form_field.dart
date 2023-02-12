@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PasswordTextField extends StatelessWidget {
-  const PasswordTextField({
+class PasswordFormField extends StatelessWidget {
+  const PasswordFormField({
     super.key,
     required this.onPasswordSaved,
   });

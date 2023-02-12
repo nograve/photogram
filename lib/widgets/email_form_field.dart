@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class EmailTextField extends StatelessWidget {
-  const EmailTextField({
+class EmailFormField extends StatelessWidget {
+  const EmailFormField({
     super.key,
     required this.onEmailSaved,
   });

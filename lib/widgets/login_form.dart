@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:photogram/widgets/email_text_field.dart';
-import 'package:photogram/widgets/password_text_field.dart';
+import 'package:photogram/widgets/email_form_field.dart';
+import 'package:photogram/widgets/password_form_field.dart';
 
 import '../services/firebase_service.dart';
 
@@ -31,12 +31,12 @@ class _LoginFormState extends State<LoginForm> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            EmailTextField(onEmailSaved: (newEmail) {
+            EmailFormField(onEmailSaved: (newEmail) {
               setState(() {
                 _email = newEmail;
               });
             }),
-            PasswordTextField(onPasswordSaved: (newPassword) {
+            PasswordFormField(onPasswordSaved: (newPassword) {
               setState(() {
                 _password = newPassword;
               });

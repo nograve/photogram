@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:photogram/widgets/email_text_field.dart';
-import 'package:photogram/widgets/password_text_field.dart';
+import 'package:photogram/widgets/email_form_field.dart';
+import 'package:photogram/widgets/password_form_field.dart';
 
 import '../services/firebase_service.dart';
 
@@ -98,12 +98,12 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 });
               },
             ),
-            EmailTextField(onEmailSaved: (newEmail) {
+            EmailFormField(onEmailSaved: (newEmail) {
               setState(() {
                 _email = newEmail;
               });
             }),
-            PasswordTextField(onPasswordSaved: (newPassword) {
+            PasswordFormField(onPasswordSaved: (newPassword) {
               setState(() {
                 _password = newPassword;
               });
