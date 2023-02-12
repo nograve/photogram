@@ -23,6 +23,13 @@ class _HomePageState extends State<HomePage> {
     const ProfilePage(),
   ];
 
+  void onLogOutPressed() async {
+    await _firebaseService.logOut();
+    if (context.mounted) {
+      Navigator.popAndPushNamed(context, 'login');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,10 +53,7 @@ class _HomePageState extends State<HomePage> {
               right: 8.0,
             ),
             child: GestureDetector(
-              onTap: () async {
-                await _firebaseService.logOut();
-                Navigator.popAndPushNamed(context, 'login');
-              },
+              onTap: onLogOutPressed,
               child: const Icon(Icons.logout),
             ),
           ),

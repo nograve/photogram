@@ -22,6 +22,19 @@ class _RegistrationFormState extends State<RegistrationForm> {
   String? _email;
   String? _password;
 
+  void onRegisterButtonPressed() async {
+    if (_registerFormKey.currentState!.validate()) {
+      _registerFormKey.currentState!.save();
+      final String? result = await _firebaseService.registerUser(
+        name: _name!,
+        email: _email!,
+        password: _password!,
+        image: _image!,
+      );
+      if (context.mounted && result == null) Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -136,6 +149,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   ),
                 ),
               ),
+              onPressed: onRegisterButtonPressed,
               child: const Text(
                 'Register',
                 style: TextStyle(
@@ -144,18 +158,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              onPressed: () async {
-                if (_registerFormKey.currentState!.validate()) {
-                  _registerFormKey.currentState!.save();
-                  final String? result = await _firebaseService.registerUser(
-                    name: _name!,
-                    email: _email!,
-                    password: _password!,
-                    image: _image!,
-                  );
-                  if (result == null) Navigator.pop(context);
-                }
-              },
             ),
           ],
         ),

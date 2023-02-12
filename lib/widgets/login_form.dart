@@ -18,6 +18,26 @@ class _LoginFormState extends State<LoginForm> {
   String? _email;
   String? _password;
 
+  void onLoginButtonPressed() async {
+    if (_loginFormKey.currentState!.validate()) {
+      _loginFormKey.currentState!.save();
+      final String? result = await _firebaseService.loginUser(
+        email: _email!,
+        password: _password!,
+      );
+      if (result == null) {
+        if (context.mounted) {
+          Navigator.popAndPushNamed(context, 'home');
+        }
+      } else {
+        showSimpleNotification(
+          Text(result),
+          background: Colors.grey,
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -67,6 +87,7 @@ class _LoginFormState extends State<LoginForm> {
                       MediaQuery.of(context).size.height * 0.06),
                 ),
               ),
+              onPressed: onLoginButtonPressed,
               child: const Text(
                 'Login',
                 style: TextStyle(
@@ -75,23 +96,6 @@ class _LoginFormState extends State<LoginForm> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              onPressed: () async {
-                if (_loginFormKey.currentState!.validate()) {
-                  _loginFormKey.currentState!.save();
-                  final String? result = await _firebaseService.loginUser(
-                    email: _email!,
-                    password: _password!,
-                  );
-                  if (result == null) {
-                    Navigator.popAndPushNamed(context, 'home');
-                  } else {
-                    showSimpleNotification(
-                      Text(result),
-                      background: Colors.grey,
-                    );
-                  }
-                }
-              },
             ),
           ],
         ),
