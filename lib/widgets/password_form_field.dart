@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:photogram/functions/password_validator.dart';
+import '../functions/password_validator.dart';
 
 class PasswordFormField extends StatelessWidget {
   const PasswordFormField({

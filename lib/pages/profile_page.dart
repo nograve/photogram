@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../widgets/user_name_widget.dart';
+
 import '../widgets/posts_grid_view.dart';
 import '../widgets/profile_picture.dart';
+import '../widgets/user_name_widget.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

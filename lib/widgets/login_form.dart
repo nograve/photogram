@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:photogram/widgets/email_form_field.dart';
-import 'package:photogram/widgets/password_form_field.dart';
 
 import '../services/firebase_service.dart';
+import 'email_form_field.dart';
+import 'password_form_field.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});

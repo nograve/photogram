@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:photogram/widgets/email_form_field.dart';
-import 'package:photogram/widgets/password_form_field.dart';
+import 'email_form_field.dart';
+import 'password_form_field.dart';
 
 import '../services/firebase_service.dart';
 
