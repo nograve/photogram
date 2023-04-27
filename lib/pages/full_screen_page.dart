@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
 
 class FullScreenPage extends StatelessWidget {
   const FullScreenPage({
@@ -11,10 +12,8 @@ class FullScreenPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Image.network(
-        url,
-        width: double.infinity,
-        height: double.infinity,
+      body: SizedBox.expand(
+        child: PhotoView(imageProvider: NetworkImage(url)),
       ),
     );
   }
