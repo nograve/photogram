@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/posts_grid_view.dart';
-import '../widgets/profile_picture.dart';
-import '../widgets/user_name_widget.dart';
+import 'package:photogram/widgets/posts_grid_view.dart';
+import 'package:photogram/widgets/profile_picture.dart';
+import 'package:photogram/widgets/user_name_widget.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -15,9 +15,7 @@ class ProfilePage extends StatelessWidget {
         vertical: MediaQuery.of(context).size.height * 0.02,
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           UserNameWidget(),
           ProfilePicture(),

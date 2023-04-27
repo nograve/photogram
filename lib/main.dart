@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:overlay_support/overlay_support.dart';
-import 'pages/home_page.dart';
-import 'pages/login_page.dart';
-import 'pages/register_page.dart';
-import 'services/firebase_service.dart';
+import 'package:photogram/pages/home_page.dart';
+import 'package:photogram/pages/login_page.dart';
+import 'package:photogram/pages/register_page.dart';
+import 'package:photogram/services/firebase_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

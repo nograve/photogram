@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../functions/email_validator.dart';
+import 'package:photogram/functions/email_validator.dart';
 
 class EmailFormField extends StatelessWidget {
   const EmailFormField({
-    super.key,
     required this.onEmailSaved,
+    super.key,
   });
 
   final void Function(String?) onEmailSaved;

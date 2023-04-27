@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'full_screen_page.dart';
-
-import '../services/firebase_service.dart';
+import 'package:photogram/pages/full_screen_page.dart';
+import 'package:photogram/services/firebase_service.dart';
 
 class FeedPage extends StatelessWidget {
   FeedPage({super.key});
@@ -12,26 +11,27 @@ class FeedPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
+    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
       stream: firebaseService.getLatestPosts(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final List posts = snapshot.data!.docs.map((e) => e.data()).toList();
+          final posts = snapshot.data!.docs.map((e) => e.data()).toList();
           return ListView.builder(
             itemCount: posts.length,
             itemBuilder: (context, index) {
-              Map post = posts[index];
+              final post = posts[index];
               return Column(
                 children: [
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => FullScreenPage(
-                              url: post['image'],
-                            ),
-                          ));
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (context) => FullScreenPage(
+                            url: post['image'].toString(),
+                          ),
+                        ),
+                      );
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.3,
@@ -40,10 +40,10 @@ class FeedPage extends StatelessWidget {
                         horizontal: MediaQuery.of(context).size.width * 0.05,
                       ),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
+                        border: Border.all(),
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage(post['image']),
+                          image: NetworkImage(post['image'].toString()),
                         ),
                       ),
                     ),

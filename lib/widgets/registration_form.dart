@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'email_form_field.dart';
-import 'password_form_field.dart';
-
-import '../services/firebase_service.dart';
+import 'package:photogram/services/firebase_service.dart';
+import 'package:photogram/widgets/email_form_field.dart';
+import 'package:photogram/widgets/password_form_field.dart';
 
 class RegistrationForm extends StatefulWidget {
   const RegistrationForm({super.key});
@@ -32,8 +30,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
         key: _registerFormKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             FormField<File>(
               validator: (value) {
@@ -64,10 +60,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: (_image != null
-                                    ? FileImage(_image!)
-                                    : const NetworkImage(
-                                        'https://i.pravatar.cc/300'))
-                                as ImageProvider,
+                                ? FileImage(_image!)
+                                : const NetworkImage(
+                                    'https://i.pravatar.cc/300',
+                                  )) as ImageProvider,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -98,16 +94,20 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 });
               },
             ),
-            EmailFormField(onEmailSaved: (newEmail) {
-              setState(() {
-                _email = newEmail;
-              });
-            }),
-            PasswordFormField(onPasswordSaved: (newPassword) {
-              setState(() {
-                _password = newPassword;
-              });
-            }),
+            EmailFormField(
+              onEmailSaved: (newEmail) {
+                setState(() {
+                  _email = newEmail;
+                });
+              },
+            ),
+            PasswordFormField(
+              onPasswordSaved: (newPassword) {
+                setState(() {
+                  _password = newPassword;
+                });
+              },
+            ),
             ElevatedButton(
               style: ButtonStyle(
                 fixedSize: MaterialStateProperty.all(
@@ -120,7 +120,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
               onPressed: () async {
                 if (_registerFormKey.currentState!.validate()) {
                   _registerFormKey.currentState!.save();
-                  final String? result = await _firebaseService.registerUser(
+                  final result = await _firebaseService.registerUser(
                     name: _name!,
                     email: _email!,
                     password: _password!,

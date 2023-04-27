@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import '../functions/password_validator.dart';
+import 'package:photogram/functions/password_validator.dart';
 
 class PasswordFormField extends StatelessWidget {
   const PasswordFormField({
-    super.key,
     required this.onPasswordSaved,
+    super.key,
   });
 
+  // ignore: inference_failure_on_function_return_type
   final Function(String?) onPasswordSaved;
 
   @override

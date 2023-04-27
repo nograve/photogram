@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class FullScreenPage extends StatelessWidget {
   const FullScreenPage({
-    super.key,
     required this.url,
+    super.key,
   });
 
   final String url;

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-import '../services/firebase_service.dart';
-import 'email_form_field.dart';
-import 'password_form_field.dart';
+import 'package:photogram/services/firebase_service.dart';
+import 'package:photogram/widgets/email_form_field.dart';
+import 'package:photogram/widgets/password_form_field.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -28,36 +28,40 @@ class _LoginFormState extends State<LoginForm> {
         key: _loginFormKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            EmailFormField(onEmailSaved: (newEmail) {
-              setState(() {
-                _email = newEmail;
-              });
-            }),
-            PasswordFormField(onPasswordSaved: (newPassword) {
-              setState(() {
-                _password = newPassword;
-              });
-            }),
+            EmailFormField(
+              onEmailSaved: (newEmail) {
+                setState(() {
+                  _email = newEmail;
+                });
+              },
+            ),
+            PasswordFormField(
+              onPasswordSaved: (newPassword) {
+                setState(() {
+                  _password = newPassword;
+                });
+              },
+            ),
             ElevatedButton(
               style: ButtonStyle(
                 fixedSize: MaterialStateProperty.all(
-                  Size(MediaQuery.of(context).size.width * 0.5,
-                      MediaQuery.of(context).size.height * 0.06),
+                  Size(
+                    MediaQuery.of(context).size.width * 0.5,
+                    MediaQuery.of(context).size.height * 0.06,
+                  ),
                 ),
               ),
               onPressed: () async {
                 if (_loginFormKey.currentState!.validate()) {
                   _loginFormKey.currentState!.save();
-                  final String? result = await _firebaseService.loginUser(
+                  final result = await _firebaseService.loginUser(
                     email: _email!,
                     password: _password!,
                   );
                   if (result == null) {
                     if (context.mounted) {
-                      Navigator.popAndPushNamed(context, 'home');
+                      await Navigator.popAndPushNamed(context, 'home');
                     }
                   } else {
                     showSimpleNotification(

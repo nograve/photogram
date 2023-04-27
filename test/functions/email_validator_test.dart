@@ -6,28 +6,28 @@ void main() {
       'Given null email '
       'When passwordValidator function invoked '
       'Then result returned', () {
-    final String? result = emailValidator(null);
+    final result = emailValidator(null);
     expect(result.runtimeType, String);
   });
   test(
       'Given empty email '
       'When passwordValidator function invoked '
       'Then result returned', () {
-    final String? result = emailValidator('');
+    final result = emailValidator('');
     expect(result.runtimeType, String);
   });
   test(
       'Given wrong written email '
       'When passwordValidator function invoked '
       'Then result returned', () {
-    final String? result = emailValidator('123gmai@123123');
+    final result = emailValidator('123gmai@123123');
     expect(result.runtimeType, String);
   });
   test(
       'Given right written email '
       'When passwordValidator function invoked '
       'Then result returned', () {
-    final String? result = emailValidator('test@gmail.com');
+    final result = emailValidator('test@gmail.com');
     expect(result, null);
   });
 }

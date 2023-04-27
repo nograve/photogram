@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-
-import '../services/firebase_service.dart';
+import 'package:photogram/services/firebase_service.dart';
 
 class ProfilePicture extends StatelessWidget {
   ProfilePicture({super.key});
@@ -20,7 +19,7 @@ class ProfilePicture extends StatelessWidget {
         borderRadius: BorderRadius.circular(100),
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: NetworkImage(firebaseService.currentUser!['image']),
+          image: NetworkImage(firebaseService.currentUser!['image'].toString()),
         ),
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/registration_form.dart';
-import '../widgets/title_widget.dart';
+import 'package:photogram/widgets/registration_form.dart';
+import 'package:photogram/widgets/title_widget.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -17,8 +17,6 @@ class RegisterPage extends StatelessWidget {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: const [
                 TitleWidget(),
                 RegistrationForm(),

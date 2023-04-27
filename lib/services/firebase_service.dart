@@ -12,9 +12,9 @@ class FirebaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  Map? _currentUser;
+  Map<String, dynamic>? _currentUser;
 
-  Map? get currentUser => _currentUser;
+  Map<String, dynamic>? get currentUser => _currentUser;
 
   Future<String?> registerUser({
     required String name,
@@ -23,16 +23,16 @@ class FirebaseService {
     required File image,
   }) async {
     try {
-      final UserCredential userCredential = await _auth
-          .createUserWithEmailAndPassword(email: email, password: password);
-      final String userId = userCredential.user!.uid;
-      final String fileName =
-          Timestamp.now().millisecondsSinceEpoch.toString() +
-              p.extension(image.path);
-      final UploadTask task =
-          _storage.ref('images/$userId/$fileName').putFile(image);
+      final userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      final userId = userCredential.user!.uid;
+      final fileName = Timestamp.now().millisecondsSinceEpoch.toString() +
+          p.extension(image.path);
+      final task = _storage.ref('images/$userId/$fileName').putFile(image);
       return await task.then((snapshot) async {
-        final String downloadURL = await snapshot.ref.getDownloadURL();
+        final downloadURL = await snapshot.ref.getDownloadURL();
         await _db.collection(userCollection).doc(userId).set({
           'name': name,
           'email': email,
@@ -47,10 +47,9 @@ class FirebaseService {
     }
   }
 
-  Future<Map> getUserData({required String uid}) async {
-    final DocumentSnapshot<Map<String, dynamic>> doc =
-        await _db.collection(userCollection).doc(uid).get();
-    return doc.data() as Map;
+  Future<Map<String, dynamic>> getUserData({required String uid}) async {
+    final doc = await _db.collection(userCollection).doc(uid).get();
+    return doc.data()!;
   }
 
   Future<String?> loginUser({
@@ -58,8 +57,10 @@ class FirebaseService {
     required String password,
   }) async {
     try {
-      final UserCredential userCredential = await _auth
-          .signInWithEmailAndPassword(email: email, password: password);
+      final userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       _currentUser = await getUserData(uid: userCredential.user!.uid);
       return null;
     } on FirebaseAuthException catch (e) {
@@ -71,14 +72,12 @@ class FirebaseService {
 
   Future<String?> postImage(File image) async {
     try {
-      final String userId = _auth.currentUser!.uid;
-      final String fileName =
-          Timestamp.now().millisecondsSinceEpoch.toString() +
-              p.extension(image.path);
-      final UploadTask task =
-          _storage.ref('images/$userId/$fileName').putFile(image);
+      final userId = _auth.currentUser!.uid;
+      final fileName = Timestamp.now().millisecondsSinceEpoch.toString() +
+          p.extension(image.path);
+      final task = _storage.ref('images/$userId/$fileName').putFile(image);
       return await task.then((snapshot) async {
-        final String downloadUrl = await snapshot.ref.getDownloadURL();
+        final downloadUrl = await snapshot.ref.getDownloadURL();
         await _db.collection(postsCollection).add({
           'userId': userId,
           'timestamp': Timestamp.now(),
@@ -91,7 +90,7 @@ class FirebaseService {
     }
   }
 
-  Stream<QuerySnapshot> getLatestPosts() {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getLatestPosts() {
     return _db
         .collection(postsCollection)
         .orderBy(
@@ -101,8 +100,8 @@ class FirebaseService {
         .snapshots();
   }
 
-  Stream<QuerySnapshot> getPostsForUser() {
-    final String userId = _auth.currentUser!.uid;
+  Stream<QuerySnapshot<Map<String, dynamic>>> getPostsForUser() {
+    final userId = _auth.currentUser!.uid;
     return _db
         .collection(postsCollection)
         .where('userId', isEqualTo: userId)

@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-
-import '../services/firebase_service.dart';
-import 'feed_page.dart';
-import 'profile_page.dart';
+import 'package:photogram/pages/feed_page.dart';
+import 'package:photogram/pages/profile_page.dart';
+import 'package:photogram/services/firebase_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -43,14 +41,14 @@ class _HomePageState extends State<HomePage> {
           ),
           Padding(
             padding: const EdgeInsets.only(
-              left: 8.0,
-              right: 8.0,
+              left: 8,
+              right: 8,
             ),
             child: GestureDetector(
               onTap: () async {
                 await _firebaseService.logOut();
                 if (context.mounted) {
-                  Navigator.popAndPushNamed(context, 'login');
+                  await Navigator.popAndPushNamed(context, 'login');
                 }
               },
               child: const Icon(Icons.logout),
