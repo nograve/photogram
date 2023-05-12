@@ -15,10 +15,10 @@ class LoginPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * 0.05,
           ),
-          child: Center(
+          child: const Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
+              children: [
                 TitleWidget(),
                 LoginForm(),
                 RegisterPageLink(),
